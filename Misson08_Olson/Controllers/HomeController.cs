@@ -18,15 +18,50 @@ namespace Misson08_Olson.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult task()
         {
-            return View();
+            return View("task", new task());
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult FIllOutApplication(task response)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (response.Date == null) { response.Date = ""; }
+
+            if (ModelState.IsValid)
+            {
+                _logger.Tasks.Add(response); // Add record to the database
+                _logger.SaveChanges();
+
+                return View("Index", response);
+            }
+            else
+            {
+                return View("task", response);
+            }
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _logger.Tasks
+                .Single(x => x.TaskId == id);
+
+            return View("task", recordToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(task updatedInfo)
+        {
+            _logger.Update(updatedInfo);
+            _logger.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
     }
 }
