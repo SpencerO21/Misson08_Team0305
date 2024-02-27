@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Misson08_Olson.Models;
 using System.Diagnostics;
+using Task = Misson08_Olson.Models.Task;
 
 namespace Misson08_Olson.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        ITasksRepository _repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ITasksRepository temp)
         {
-            _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
@@ -21,18 +22,16 @@ namespace Misson08_Olson.Controllers
         [HttpGet]
         public IActionResult task()
         {
-            return View("task", new task());
+            return View("task", new Task());
         }
 
         [HttpPost]
-        public IActionResult FIllOutApplication(task response)
+        public IActionResult FIllOutApplication(Task response)
         {
-            if (response.Date == null) { response.Date = ""; }
 
             if (ModelState.IsValid)
             {
-                _logger.Tasks.Add(response); // Add record to the database
-                _logger.SaveChanges();
+                _repo.AddTask(response);
 
                 return View("Index", response);
             }
@@ -45,17 +44,16 @@ namespace Misson08_Olson.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var recordToEdit = _logger.Tasks
+            var recordToEdit = _repo.tasks
                 .Single(x => x.TaskId == id);
 
             return View("task", recordToEdit);
         }
 
         [HttpPost]
-        public IActionResult Edit(task updatedInfo)
+        public IActionResult Edit(Task updatedInfo)
         {
-            _logger.Update(updatedInfo);
-            _logger.SaveChanges();
+            _repo.UpdateTask(updatedInfo);
 
             return RedirectToAction("Index");
         }
