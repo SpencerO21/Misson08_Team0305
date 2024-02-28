@@ -24,10 +24,11 @@
     <br />
     <label asp-for="CategoryId">What is your task category?</label>
     <select asp-for="CategoryId">
-        <option value="4">Church</option>
-        <option value="3">Work</option>
-        <option value="2">School</option>
-        <option value="1">Home</option>
+        <option value="">Select a Category</option>
+        @foreach (Category cat in ViewBag.categories)
+        {
+            <option value="@cat.CategoryId">@cat.CategoryName</option>
+        }
     </select>
     <br />
     <label asp-for="Completed"> Has the task been completed?</label>

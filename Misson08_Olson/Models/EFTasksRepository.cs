@@ -8,6 +8,7 @@ namespace Misson08_Olson.Models
             _context = temp;
         }
         public List<Task> tasks => _context.Tasks.ToList();
+        public List<Category> categories => _context.Categories.ToList();
 
         public void AddTask(Task task)
         {

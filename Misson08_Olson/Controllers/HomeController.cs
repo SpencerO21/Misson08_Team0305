@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Misson08_Olson.Models;
 using System.Diagnostics;
 using Task = Misson08_Olson.Models.Task;
@@ -22,18 +23,19 @@ namespace Misson08_Olson.Controllers
         [HttpGet]
         public IActionResult task()
         {
-            return View("task", new Task());
+            ViewBag.categories = _repo.categories.ToList();
+            return View("task");
         }
 
         [HttpPost]
-        public IActionResult FIllOutApplication(Task response)
+        public IActionResult task(Task response)
         {
 
             if (ModelState.IsValid)
             {
                 _repo.AddTask(response);
 
-                return View("Index", response);
+                return View("Index");
             }
             else
             {
