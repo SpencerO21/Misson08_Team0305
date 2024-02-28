@@ -39,6 +39,7 @@ namespace Misson08_Olson.Controllers
             }
             else
             {
+                ViewBag.categories = _repo.categories.ToList();
                 return View("task", response);
             }
         }

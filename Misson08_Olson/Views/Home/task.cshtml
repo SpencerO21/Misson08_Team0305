@@ -12,6 +12,7 @@
 <form method="post">
 
     <input type="hidden" asp-for="TaskId" />
+    
 
     <label asp-for="Task1">Task Name:</label>
     <input asp-for="Task1" />
@@ -33,8 +34,8 @@
     <br />
     <label asp-for="Completed"> Has the task been completed?</label>
     <select asp-for="Completed">
-        <option value="1">Yes</option>
-        <option value="0">No</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
     </select>
     <br />
 
