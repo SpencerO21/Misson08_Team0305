@@ -2,7 +2,45 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model List<Task>
+
+<div class="container">
+    <h2>Quadrants View</h2>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Quadrant I - Urgent and Important</h3>
+            @RenderTasks("Quadrant I", Model.Where(t => t.QuadId == "Quadrant I"))
+        </div>
+        
+        <div class="col-md-3">
+            <h3>Quadrant II - Not Urgent but Important</h3>
+            @RenderTasks("Quadrant II", Model.Where(t => t.QuadId == "Quadrant II"))
+        </div>
+        
+        <div class="col-md-3">
+            <h3>Quadrant III - Urgent but Not Important</h3>
+            @RenderTasks("Quadrant III", Model.Where(t => t.QuadId == "Quadrant III"))
+        </div>
+        
+        <div class="col-md-3">
+            <h3>Quadrant IV - Not Urgent and Not Important</h3>
+            @RenderTasks("Quadrant IV", Model.Where(t => t.QuadId == "Quadrant IV"))
+        </div>
+    </div>
 </div>
+
+
+    @foreach (var x in Model)
+    {
+        <div class="task">
+            <p>Task: @x.Task1</p>
+            <p>Due Date: @x.DueDate</p>
+            <p>Category: @x.CategoryId</p>
+            <p>Completed: @x.Completed</p>
+            
+            <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a>
+            <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete</a>
+            <a href="@Url.Action("DeleteTask", new { taskId = x.TaskId })">Delete</a>
+        </div>
+    }

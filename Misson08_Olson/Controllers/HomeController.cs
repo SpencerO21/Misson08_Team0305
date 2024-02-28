@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Misson08_Olson.Models;
 using System.Diagnostics;
 using Task = Misson08_Olson.Models.Task;
@@ -58,7 +59,22 @@ namespace Misson08_Olson.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _logger.Tasks.Single(x => x.TaskId == id);
 
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Form Task)
+        {
+            _logger.Tasks.Remove(task);
+            _logger.SaveChanges();
+
+            return RedirectToAction("MovieList");
+        }
 
 
     }
