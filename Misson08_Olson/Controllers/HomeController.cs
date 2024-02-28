@@ -23,21 +23,23 @@ namespace Misson08_Olson.Controllers
         [HttpGet]
         public IActionResult task()
         {
-            return View("task", new Task());
+            ViewBag.categories = _repo.categories.ToList();
+            return View("task");
         }
 
         [HttpPost]
-        public IActionResult FIllOutApplication(Task response)
+        public IActionResult task(Task response)
         {
 
             if (ModelState.IsValid)
             {
                 _repo.AddTask(response);
 
-                return View("Index", response);
+                return View("Index");
             }
             else
             {
+                ViewBag.categories = _repo.categories.ToList();
                 return View("task", response);
             }
         }

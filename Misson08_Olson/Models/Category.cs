@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Misson08_Olson.Models;
 
 public partial class Category
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CategoryId { get; set; }
 
-    public string? CategoryName { get; set; }
-
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    [Required]
+    public required string CategoryName { get; set; }
 }

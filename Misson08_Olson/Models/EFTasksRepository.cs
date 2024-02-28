@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+
 namespace Misson08_Olson.Models
 {
     public class EFTasksRepository : ITasksRepository
@@ -7,7 +9,8 @@ namespace Misson08_Olson.Models
         public EFTasksRepository(TasksContext temp) {
             _context = temp;
         }
-        public List<Task> tasks => _context.Tasks.ToList();
+        public List<Task> tasks => _context.Tasks.Include("Category").ToList();
+        public List<Category> categories => _context.Categories.ToList();
 
         public void AddTask(Task task)
         {

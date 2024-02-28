@@ -42,9 +42,7 @@ public partial class TasksContext : DbContext
             entity.Property(e => e.TaskId).ValueGeneratedNever();
             entity.Property(e => e.Task1).HasColumnName("Task");
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Tasks)
-                .HasForeignKey(d => d.CategoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+            
         });
 
         OnModelCreatingPartial(modelBuilder);
