@@ -64,18 +64,17 @@ namespace Misson08_Olson.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var recordToDelete = _logger.Tasks.Single(x => x.TaskId == id);
+            var recordToDelete = _repo.tasks.Single(x => x.TaskId == id);
 
             return View(recordToDelete);
         }
 
         [HttpPost]
-        public IActionResult Delete(Form Task)
+        public IActionResult Delete(Task task)
         {
-            _logger.Tasks.Remove(task);
-            _logger.SaveChanges();
+            _repo.RemoveTask(task);
 
-            return RedirectToAction("MovieList");
+            return RedirectToAction("Index");
         }
 
 

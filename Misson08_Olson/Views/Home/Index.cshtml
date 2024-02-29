@@ -10,22 +10,22 @@
     <div class="row">
         <div class="col-md-3">
             <h3>Quadrant I - Urgent and Important</h3>
-            @RenderTasks("Quadrant I", Model.Where(t => t.QuadId == "Quadrant I"))
+            @RenderTasks("Quadrant I", Model.Where(t => t.QuadId == 1))
         </div>
         
         <div class="col-md-3">
             <h3>Quadrant II - Not Urgent but Important</h3>
-            @RenderTasks("Quadrant II", Model.Where(t => t.QuadId == "Quadrant II"))
+            @RenderTasks("Quadrant II", Model.Where(t => t.QuadId == 2))
         </div>
         
         <div class="col-md-3">
             <h3>Quadrant III - Urgent but Not Important</h3>
-            @RenderTasks("Quadrant III", Model.Where(t => t.QuadId == "Quadrant III"))
+            @RenderTasks("Quadrant III", Model.Where(t => t.QuadId == 3))
         </div>
         
         <div class="col-md-3">
             <h3>Quadrant IV - Not Urgent and Not Important</h3>
-            @RenderTasks("Quadrant IV", Model.Where(t => t.QuadId == "Quadrant IV"))
+            @RenderTasks("Quadrant IV", Model.Where(t => t.QuadId == 4))
         </div>
     </div>
 </div>
