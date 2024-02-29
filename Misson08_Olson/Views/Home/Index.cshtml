@@ -2,7 +2,135 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model List<Misson08_Olson.Models.Task>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Stephen Covey's Time Management Matrix</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <!-- Empty space for alignment -->
+        </div>
+        <div class="col-5 text-center">
+            <h5>Urgent</h5>
+        </div>
+        <div class="col-5 text-center">
+            <h5>Not Urgent</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 text-center">
+            <h5>Important</h5>
+        </div>
+
+        <div class="col-5 text-center">
+            <h5>Quadrant I - Urgent and Important</h5>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        @if (x.QuadId == 1)
+                        {
+                            <tr>
+                                <td>
+                                    <p>Task: @x.Task1</p>
+                                    <p>Due Date: @x.DueDate</p>
+                                    <p>Category: @x.CategoryId</p>
+
+                                    <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a>
+                                    <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete</a>
+                                    <a href="@Url.Action("DeleteTask", new { taskId = x.TaskId })">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-5 text-center">
+            <h5>Quadrant II - Not Urgent but Important</h5>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        @if (x.QuadId == 2)
+                        {
+                            <tr>
+                                <td>
+                                    <p>Task: @x.Task1</p>
+                                    <p>Due Date: @x.DueDate</p>
+                                    <p>Category: @x.CategoryId</p>
+
+                                    <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a>
+                                    <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete</a>
+                                    <a href="@Url.Action("DeleteTask", new { taskId = x.TaskId })">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 text-center">
+            <h5>Not Important</h5>
+        </div>
+
+        <div class="col-5 text-center">
+            <h5>Quadrant III - Urgent but Not Important</h5>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        @if (x.QuadId == 3)
+                        {
+                            <tr>
+                                <td>
+                                    <p>Task: @x.Task1</p>
+                                    <p>Due Date: @x.DueDate</p>
+                                    <p>Category: @x.CategoryId</p>
+
+                                    <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a>
+                                    <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete</a>
+                                    <a href="@Url.Action("DeleteTask", new { taskId = x.TaskId })">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-5 text-center">
+            <h5>Quadrant IV - Not Urgent and Not Important</h5>
+            <table class="table table-bordered">
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        @if (x.QuadId == 4)
+                        {
+                            <tr>
+                                <td>
+                                    <p>Task: @x.Task1</p>
+                                    <p>Due Date: @x.DueDate</p>
+                                    <p>Category: @x.CategoryId</p>
+
+                                    <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@x.TaskId">Edit</a>
+                                    <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.TaskId">Delete</a>
+                                    <a href="@Url.Action("DeleteTask", new { taskId = x.TaskId })">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
