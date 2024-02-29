@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Misson08_Olson.Models;
+using System.ComponentModel;
 using System.Diagnostics;
 using Task = Misson08_Olson.Models.Task;
 
@@ -17,7 +18,11 @@ namespace Misson08_Olson.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var allTasks = _repo.tasks
+                .Where(x => x.Completed == false)
+                .OrderBy(x => x.DueDate).ToList();
+
+            return View(allTasks);
         }
 
         [HttpGet]
@@ -61,7 +66,21 @@ namespace Misson08_Olson.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _repo.tasks.Single(x => x.TaskId == id);
 
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Task task)
+        {
+            _repo.RemoveTask(task);
+
+            return RedirectToAction("Index");
+        }
 
 
     }
