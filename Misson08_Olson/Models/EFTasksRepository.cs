@@ -14,7 +14,9 @@ namespace Misson08_Olson.Models
 
         public void AddTask(Task task)
         {
-            task.TaskId = task.TaskId + 1;
+            // Since auto gen numbers aren't working, here we do it manually
+            var lastTask = _context.Tasks.OrderByDescending(t => t.TaskId).FirstOrDefault();
+            task.TaskId = lastTask.TaskId + 1;
             _context.Add(task);
             _context.SaveChanges();
         }
