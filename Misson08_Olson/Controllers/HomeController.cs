@@ -52,6 +52,8 @@ namespace Misson08_Olson.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            ViewBag.categories = _repo.categories.ToList();
+
             var recordToEdit = _repo.tasks
                 .Single(x => x.TaskId == id);
 

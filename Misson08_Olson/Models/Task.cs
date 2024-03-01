@@ -14,7 +14,7 @@ public partial class Task
     public required string Task1 { get; set; } 
 
     public string? DueDate { get; set; }
-
+    [Range(1, 4)]
     public int QuadId { get; set; }
 
     public int CategoryId { get; set; }
