@@ -1,32 +1,87 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Misson08_Olson.Models;
+using System.ComponentModel;
 using System.Diagnostics;
+using Task = Misson08_Olson.Models.Task;
 
 namespace Misson08_Olson.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        ITasksRepository _repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ITasksRepository temp)
         {
-            _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var allTasks = _repo.tasks
+                .Where(x => x.Completed == false)
+                .OrderBy(x => x.DueDate).ToList();
+
+            return View(allTasks);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult task()
         {
-            return View();
+            ViewBag.categories = _repo.categories.ToList();
+            return View("task");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult task(Task response)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+            if (ModelState.IsValid)
+            {
+                _repo.AddTask(response);
+
+                return View("Index");
+            }
+            else
+            {
+                ViewBag.categories = _repo.categories.ToList();
+                return View("task", response);
+            }
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _repo.tasks
+                .Single(x => x.TaskId == id);
+
+            return View("task", recordToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Task updatedInfo)
+        {
+            _repo.UpdateTask(updatedInfo);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _repo.tasks.Single(x => x.TaskId == id);
+
+            return View(recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Task task)
+        {
+            _repo.RemoveTask(task);
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
