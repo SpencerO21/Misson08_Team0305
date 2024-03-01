@@ -29,7 +29,7 @@ namespace Misson08_Olson.Controllers
         public IActionResult task()
         {
             ViewBag.categories = _repo.categories.ToList();
-            return View("task");
+            return View("task", new Task());
         }
 
         [HttpPost]
@@ -40,7 +40,7 @@ namespace Misson08_Olson.Controllers
             {
                 _repo.AddTask(response);
 
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {

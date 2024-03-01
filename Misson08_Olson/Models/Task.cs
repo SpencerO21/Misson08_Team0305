@@ -11,7 +11,7 @@ public partial class Task
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int TaskId { get; set; }
 
-    public required string Task1 { get; set; } 
+    public string? Task1 { get; set; } 
 
     public string? DueDate { get; set; }
     [Range(1, 4)]
