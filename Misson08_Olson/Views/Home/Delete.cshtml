@@ -5,8 +5,7 @@
 }
 @model Misson08_Olson.Models.Task
 
-<h2>Confirm Deletion</h2>
-<h3>@Model.TaskId</h3>
+<h3>Confirm Deletion: @Model.Task1</h3>
 <form method="post">
     <input type="hidden" asp-for="TaskId" />
     <button type="submit">Delete</button>
