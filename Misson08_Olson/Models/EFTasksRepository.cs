@@ -14,6 +14,7 @@ namespace Misson08_Olson.Models
 
         public void AddTask(Task task)
         {
+            task.TaskId = task.TaskId + 1;
             _context.Add(task);
             _context.SaveChanges();
         }
