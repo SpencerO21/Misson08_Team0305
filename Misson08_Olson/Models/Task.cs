@@ -7,15 +7,18 @@ namespace Misson08_Olson.Models;
 
 public partial class Task
 {
+
+
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int TaskId { get; set; }
-
-    public string? Task1 { get; set; } 
+    [Required]
+    public string Task1 { get; set; } 
 
     public string? DueDate { get; set; }
     [Range(1, 4)]
-    public int QuadId { get; set; }
+    [Required]
+    public  int QuadId { get; set; }
 
     public int CategoryId { get; set; }
 
